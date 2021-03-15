@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router()
 
+let carrito = []
+
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   carrito.map((element) =>
@@ -13,7 +15,8 @@ router.post("/", (req, res) => {
 console.log(req.body);
   try {
     const { productos } = req.body;
-  productos.push({
+    console.log(productos);
+    carrito.push({
     id : carrito.length,
     timestamp : Date.now(),
     productos : productos

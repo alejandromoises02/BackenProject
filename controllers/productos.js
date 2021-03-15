@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router()
+let productos = [];
 
 
 router.get("/", (req, res) => {
@@ -12,13 +13,12 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   productos.map((element) =>
-        element.id === id ? res.send(element) : null
+       element.id === id ? res.send(element) : null
       );
       res.sendStatus(404);
 });
 
 router.post("/", (req, res) => {
-console.log(req.body);
   try {
     const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
   productos.push({
@@ -43,7 +43,6 @@ router.patch("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const { nombre, descripcion, codigo, foto, precio, stock } = req.body;
   const producto = productos.find(producto => producto.id === id)
-  console.log(producto);
       if(!producto){
         res.sendStatus(404)
       }
@@ -57,13 +56,14 @@ router.patch("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const producto = productos.find(producto => producto.id === id)
+  let id = parseInt(req.params.id);
+  let producto = productos.find(producto => producto.id === id)
+  console.log(producto);
       if(!producto){
         res.sendStatus(404)
       }
-      productos = productos.filter(element => element.id ==! id)
-      
+      productos = productos.filter(element => element.id !== id)
+      console.log(productos);
       res.sendStatus(200)
 });
 
