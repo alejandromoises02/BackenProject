@@ -3,6 +3,8 @@ const router = express.Router()
 
 let carrito = []
 
+
+
 router.get("/:id", (req, res) => {
   const id = parseInt(req.params.id);
   carrito.map((element) =>
